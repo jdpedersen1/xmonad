@@ -98,7 +98,10 @@ myNormColor   = "#000000"
 
 myFocusColor :: [Char]
 --myFocusColor    = "#477d8f"
-myFocusColor    = "#007687"
+myFocusColor    = "#005f87"
+
+myFloatingColor :: [Char]
+myFloatingColor = "#f9663b"
 
 myFocusFollowsMouse :: Bool
 myFocusFollowsMouse = True
@@ -125,8 +128,9 @@ myStartupHook = do
        -- spawnOnce "lxsession &"
       
        -- Sys tray--
-       -- spawnOnce "trayer --edge top --align right --widthtype request --padding 0 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x222222 --height 24 &"
-       -- spawnOnce "nm-applet &"
+          spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 4 --iconspacing 5 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 --tint 0x000000 --height 24 &")
+          spawnOnce "nm-applet &"
+          spawnOnce "mailspring -b &"
        -- spawnOnce "volumeicon &"
 
 myScratchPads :: [NamedScratchpad]
@@ -288,6 +292,15 @@ myAppGrid = [ ("Firefox", "firefox")
 --      , promptKeymap        = dtXPKeymap
 --      , position            = Bottom
 --      , position            = Top
+
+
+
+
+
+
+
+
+
 --      , position            = CenteredAt { xpCenterY = 0.3, xpWidth = 0.3 }
 --      , height              = 20
 --      , historySize         = 256
@@ -451,7 +464,8 @@ myKeys =
         , ("M-w", spawn "windows.sh")
         , ("M-S-w", spawn "bgd")
         , ("M-S-y", spawn "ytsubs.sh") 
-        , ("M-S-f", spawn "ytFont.sh")                  
+        , ("M-S-f", spawn "ytFont.sh")
+        , ("M-S-v", spawn "vmach.sh")                 
 
     -- Run Prompts
         --, ("M-C-<Return>", shellPrompt dtXPConfig)   
@@ -674,11 +688,11 @@ main = do
         , focusedBorderColor = myFocusColor
         , logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP $ xmobarPP
                         { ppOutput = \x -> hPutStrLn xmproc0 x                -- >> hPutStrLn xmproc1 x  >> hPutStrLn xmproc2 x
-                        , ppCurrent = xmobarColor "#007687" "" . wrap "*" "" -- Current workspace in xmobar
+                        , ppCurrent = xmobarColor "#f9663b" "" . wrap "*" "" -- Current workspace in xmobar
                         , ppVisible = xmobarColor "#3b3b3b" ""                -- Visible but not current workspace
-                        , ppHidden = xmobarColor "#b8b8b8" "" . wrap "*" ""   -- Hidden workspaces in xmobar
+                        , ppHidden = xmobarColor "#a8a7a6" "" . wrap "*" ""   -- Hidden workspaces in xmobar
                         , ppHiddenNoWindows = xmobarColor "#3b3b3b" ""        -- Hidden workspaces (no windows)
-                        , ppTitle = xmobarColor "#875f87" "" . shorten 40     -- Title of active window in xmobar
+                        , ppTitle = xmobarColor "#5f875f" "" . shorten 40     -- Title of active window in xmobar
                         , ppSep =  "<fc=#477d8f>  </fc>"                     -- Separators in xmobar
                         , ppUrgent = xmobarColor "#A12B2B" "" . wrap "!" "!"  -- Urgent workspace
                         , ppExtras  = [windowCount]                           -- # of windows current workspace
